@@ -1,0 +1,28 @@
+Total acumulado de MedicaoConvertida em TimeStamp = 
+CALCULATE(
+	SUM('medicao'[MedicaoConvertida]);
+	FILTER(
+		ALLSELECTED('medicao'[TimeStamp]);
+		ISONORAFTER('medicao'[TimeStamp]; MAX('medicao'[TimeStamp]); DESC)
+	)
+)
+
+
+Total de Primeiro MedicaoConvertidaUnidade para TimeStamp = 
+CALCULATE(
+	MIN('medicao'[MedicaoConvertidaUnidade]);
+	ALLSELECTED('medicao'[TimeStamp])
+)
+
+Média de MedicaoConvertida por TimeStamp = 
+AVERAGEX(
+	KEEPFILTERS(VALUES('medicao'[TimeStamp]));
+	CALCULATE(SUM('medicao'[MedicaoConvertida]))
+)
+
+
+Máximo de MedicaoConvertida por Ocorrencias = 
+MAXX(
+	KEEPFILTERS(VALUES('medicao'[Ocorrencias]));
+	CALCULATE(SUM('medicao'[MedicaoConvertida]))
+)
